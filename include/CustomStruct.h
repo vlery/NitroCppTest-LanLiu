@@ -1,5 +1,6 @@
 
 #include <list>
+#include <string>
 #include "Output.h"
 using namespace std;
 
