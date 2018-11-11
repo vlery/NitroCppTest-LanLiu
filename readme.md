@@ -1,7 +1,8 @@
 i. Use of class RectDef 
+	#include "RectDef.h"
+	//...
 	RectDef* rectDef = new  RectDef();
 	rectDef->LoadData();
-
 	rectDef->PrintDef();
 	rectDef->Resolve();
 	rectDef->PrintResolve();
