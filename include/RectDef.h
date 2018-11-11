@@ -55,7 +55,7 @@ public:
 	list<RectShape*> defineRects;
 	list<RectShape*> resolveRects;
 	list<RectShape*> resolveRectsExpand;
-
+	void AddExpandRect(RectShape* expand);
 	void Resolve();
 	bool HasExpandRect(const list<RectShape*> &shapes) const;
 	

@@ -23,7 +23,9 @@ void RectDef::LoadData() {
 		auto h = rect["h"].GetInt();
 		
 		RectShape*  r = new  RectShape(index,x,y,w,h);
-		defineRects.push_back(r);
+		if (r->Validate()) {
+			defineRects.push_back(r);
+		}
 	}
 	
 	resolveRects.clear();
@@ -107,6 +109,9 @@ void RectDef::GenerateOverlapPairs(const list<RectEdge> &edges, list<Divider*> &
 }
 
 void  RectDef::Resolve() {
+	if (defineRects.size() <= 0) {
+		return;
+	}
 	list<RectEdge>  verticalEdges;
 	list<RectEdge> horizontalEdges;
 
@@ -133,9 +138,7 @@ void  RectDef::Resolve() {
 
 	auto region_w = verticalDividers.size() - 1;
 	auto region_h = horizontalDividers.size() - 1;
-	if (region_w <=0 || region_h<=0) {
-		return;
-	}
+	
 	DivideRegion* verticalRegions  = new DivideRegion[region_w];
 	DivideRegion* horizontalRegions = new DivideRegion[region_h];
 	
@@ -241,11 +244,25 @@ void  RectDef::Resolve() {
 						h_expand += 1;
 					}
 
-					resolveRectsExpand.push_back(expandShape);
+					AddExpandRect(expandShape);
 				}
 			}
 		}
 	}
+
+}
+
+void RectDef::AddExpandRect(RectShape* expand) {
+	for each(auto rect in resolveRectsExpand) {
+		if (rect->x == expand->x && rect->y == expand->y 
+				&& rect->w == expand->w && rect->h == expand->h) {
+			for each(auto intersec in expand->overlapRect) {
+				rect->AddOverlapRect(intersec);
+			}
+			return;
+		}
+	}
+	resolveRectsExpand.push_back(expand);
 
 }
 
