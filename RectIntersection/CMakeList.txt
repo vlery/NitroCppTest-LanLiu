@@ -1,7 +1,0 @@
-project(ConsoleApplication4)
-
-add_library(MyLibrary CustomStruct.cpp)
-add_library(MyLibrary RectDef.cpp)
-add_executable(RectIntersection main.cpp)
-
-target_link_libraries(RectIntersection MyLibrary)
