@@ -49,5 +49,8 @@
     <None Include="test.json">
       <Filter>源文件</Filter>
     </None>
+    <None Include="result.json">
+      <Filter>源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -49,7 +49,8 @@ class  RectDef {
 
 public:
 
-	void LoadData();
+	void LoadData(std::string fileName);
+	
 	void PrintDef();
 	void PrintResolve();
 	list<RectShape*> defineRects;
@@ -62,8 +63,11 @@ public:
 	bool HasExpandRect(const list<RectShape*> &shapes) const;
 	
 
+	void LoadResult(std::string fileName);
+	list<RectShape*> results;
+	bool CheckResult();
+
 private:
-	const char* filePath = "data.json";
 	void GetDividersFromEdges(const list<RectEdge> &edges, list<Divider*> &dividers);
 	void GenerateOverlapPairs(const list<RectEdge> &edges, list<Divider*> &dividers);
 	

@@ -2,10 +2,10 @@
 #include "RectDef.h"
 
 
-void RectDef::LoadData() {
+void RectDef::LoadData(std::string fileName) {
 	defineRects.clear();
 	
-	ifstream ifs("test.json");
+	ifstream ifs(fileName.c_str());
 	IStreamWrapper isw(ifs);
 
 	Document d;
@@ -327,4 +327,69 @@ bool DivideRegion::IncludeOverlapPairs(list<OverlapPair> pairs) {
 	return true;
 }
 
- 
+void RectDef::LoadResult(std::string fileName) {
+	results.clear();
+
+	ifstream ifs(fileName.c_str());
+	IStreamWrapper isw(ifs);
+
+	Document d;
+
+	d.ParseStream(isw);
+
+	auto rectList = d["rects"].GetArray();
+
+	int index = 0;
+	
+	for (auto& rect : rectList) {
+		index++;
+		auto x = rect["x"].GetInt();
+		auto y = rect["y"].GetInt();
+		auto w = rect["w"].GetInt();
+		auto h = rect["h"].GetInt();
+
+		RectShape*  r = new  RectShape(index, x, y, w, h);
+		auto intersectList = rect["intersect"].GetArray();
+
+		for (auto & insec : intersectList) {
+			auto itr = defineRects.begin();
+			int rectIndex = insec.GetInt();
+			std::advance(itr, insec.GetInt()-1);
+			r->AddOverlapRect(*itr);
+		}
+		if (r->Validate()) {
+			results.push_back(r);
+		}
+	}
+
+}
+
+bool RectDef::CheckResult() {
+	CustomOutput::PrintTitle("test");
+	for each(auto r in results) {
+		bool hasResult = false;
+		for each(auto expand in resolveRectsExpand) {
+			if (r->x == expand->x && r->y == expand->y 
+				&& r->w == expand->w && r->h == expand->h) {
+				hasResult = true;
+				auto itr1 = r->overlapRect.begin();
+				auto itr2 = expand->overlapRect.begin();
+				while (itr1 != r->overlapRect.end() && itr2 != expand->overlapRect.end()) {
+					if (*itr1 != *itr2) {
+						hasResult = false;
+						break;
+					}
+					itr1++;
+					itr2++;
+				}
+			}
+		}
+		if (!hasResult) {
+			CustomOutput::PrintTitle("fail case:");
+			r->PrintIntersection();
+			return false;
+		}
+	}
+	CustomOutput::PrintTitle("pass");
+	return true;
+}
