@@ -1,5 +1,5 @@
 # NitroCppTest-LanLiu
-Use and Test
+i.Use and Test
 
 	RectDef* rectDef = new  RectDef();
 	rectDef->LoadData("test.json");
@@ -14,7 +14,7 @@ Use and Test
 	rectDef->CheckResult();
 
 
-Input and Output:
+ii.Input and Output:
 
 Type in "reload" in console to load data, calculate and test. If all the intersections listed in the result.json have been detected, then the output is "pass". Otherwise, it will print the first case cause failure.
 	
@@ -35,3 +35,7 @@ Type in "reload" in console to load data, calculate and test. If all the interse
 	test
 	pass
 	
+
+iii. Third party library
+
+rapidjson
