@@ -17,6 +17,7 @@ Use and Test
 Input and Output:
 
 Type in "reload" in console to load data, calculate and test. If all the intersections listed in the result.json have been detected, then the output is "pass". Otherwise, it will print the first case cause failure.
+	
 	reload
 	Input:
 	1 :  Rectangle at (100, 100),  w=250, h=80.
