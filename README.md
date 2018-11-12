@@ -36,6 +36,7 @@ Type in "reload" in console to load data, calculate and test. If all the interse
 	pass
 	
 
-iii. Third party library
+iii. Other
 
-rapidjson
+third party lib: rapidjson
+project environment: VS2015
