@@ -1,4 +1,4 @@
-# NitroCppTest
+
 i.Use and Test
 
 	RectDef* rectDef = new  RectDef();
